@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Super Mega Lucky Box</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="next_card">Next Card</string>
+</resources>
