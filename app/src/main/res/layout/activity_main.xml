@@ -179,7 +179,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:textColor="#2196F3"
-        android:textSize="24sp"
+        android:textSize="48sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +193,22 @@
         android:layout_marginBottom="16dp"
         android:minHeight="48dp"
         android:text="Go Wild!"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/x2"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/card_view"
+        app:layout_constraintEnd_toEndOf="@+id/card_view"
+        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintStart_toStartOf="@+id/card_view"
+        app:layout_constraintTop_toTopOf="@+id/card_view"
+        app:layout_constraintVertical_bias="0.71000004"
+        app:srcCompat="@drawable/x2_better"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

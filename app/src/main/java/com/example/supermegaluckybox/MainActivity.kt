@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
         numLeft.setText("${9 - deck.position} left")
 
         val nextCardButton: Button = findViewById(R.id.next_card_button)
-        
+
         val wildSwitch: Switch = findViewById(R.id.go_wild)
+
+        val x2View: ImageView = findViewById(R.id.x2)
 
         val nextCardAction = View.OnClickListener { _ ->
             val drawn = deck.draw()
@@ -40,6 +42,18 @@ class MainActivity : AppCompatActivity() {
                 nextCardButton.setEnabled(false)
                 cardView.setEnabled(false)
             }
+
+            x2View.visibility = if (deck.atDouble()) View.VISIBLE else View.INVISIBLE
+        }
+
+        fun doShuffle(): Unit {
+            deck.shuffle()
+            cardView.setImageResource(imageForCard(-1, wildSwitch.isChecked()))
+            resetCardCounts()
+            numLeft.setText("${9 - deck.position} left")
+            nextCardButton.setEnabled(true)
+            cardView.setEnabled(true)
+            x2View.visibility = View.INVISIBLE
         }
 
         nextCardButton.setOnClickListener(nextCardAction)
@@ -53,36 +67,22 @@ class MainActivity : AppCompatActivity() {
                 dialogBuilder.setMessage("There are more cards. Are you sure you want to shuffle?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", DialogInterface.OnClickListener { _, _ ->
-                        run {
-                            deck.shuffle()
-                            cardView.setImageResource(imageForCard(-1, wildSwitch.isChecked()))
-                            resetCardCounts()
-                            numLeft.setText("${9 - deck.position} left")
-                            nextCardButton.setEnabled(true)
-                            cardView.setEnabled(true)
-                        }
+                        run { doShuffle() }
                     })
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
-                        run {
-                            dialog.cancel()
-                        }
+                        run { dialog.cancel() }
                     })
                 val alert = dialogBuilder.create()
                 alert.setTitle("Giving up so soon?")
                 alert.show()
             } else {
-                // same as above
-                deck.shuffle()
-                cardView.setImageResource(imageForCard(-1, wildSwitch.isChecked()))
-                resetCardCounts()
-                numLeft.setText("${9 - deck.position} left")
-                nextCardButton.setEnabled(true)
-                cardView.setEnabled(true)
+                doShuffle()
             }
         }
 
     }
 
+    // Resets the counter for each card value to 0.
     fun resetCardCounts() {
         (1..9).forEach {
             val countView: TextView = findViewById(viewIdForCardCount(it))
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun imageForCard(draw: Int, isWild: Boolean) :Int {
+    fun imageForCard(draw: Int, isWild: Boolean): Int {
         if (isWild) {
             return when (draw) {
                 1 -> R.drawable.animal1
@@ -167,5 +167,9 @@ class Deck {
     // Returns the number of times that card has been seen.
     fun numDrawn(card: Int): Int {
         return Collections.frequency(cards.slice(0..position - 1), card)
+    }
+
+    fun atDouble(): Boolean {
+        return position > 1 && cards[position - 2] == cards[position - 1]
     }
 }
