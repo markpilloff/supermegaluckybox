@@ -5,9 +5,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupOnly="true"
-        android:icon="@mipmap/ic_launcher2"
+        android:icon="@mipmap/ic_launcher3"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher2_round"
+        android:roundIcon="@mipmap/ic_launcher3_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperMegaLuckyBox">
         <activity
