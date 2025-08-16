@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import java.util.*
 
+// this is a test comment!
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
